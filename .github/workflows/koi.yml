@@ -13,10 +13,25 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v7
-      - uses: yalongwastaken/git-koi@v1
+      - name: Check out git-koi-pond
+        uses: actions/checkout@v7
         with:
-          body: asagi
-          output-dir: koi
+          repository: simaanc/git-koi-pond
+          token: ${{ secrets.KOI_SOURCE_TOKEN }}
+          path: .koi-src
+      - name: Build git-koi-pond
+        shell: bash
+        run: |
+          rustup toolchain install 1.88 --profile minimal
+          cargo +1.88 build --release --locked --manifest-path .koi-src/Cargo.toml
+      - name: Draw the day's koi
+        shell: bash
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          git_koi=.koi-src/target/release/git-koi
+          "$git_koi" collect "$GITHUB_REPOSITORY_OWNER" --output "$RUNNER_TEMP/koi-snapshot.json"
+          "$git_koi" render "$RUNNER_TEMP/koi-snapshot.json" --output-dir koi --body asagi
       - name: Commit the koi if it changed
         shell: bash
         run: |
