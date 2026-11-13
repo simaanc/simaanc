@@ -1,3 +1,5 @@
+<img src="koi/koi.gif" width="256" alt="My koi" />
+
 <a href="https://github.com/simaanc">
   <img height=200 align="center" src="https://github-stats-extended.vercel.app/api?username=simaanc&show_icons=true&count_private=true&theme=transparent&hide_rank=true" alt="README Stats" />
 </a>
