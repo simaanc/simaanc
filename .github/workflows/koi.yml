@@ -13,12 +13,12 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v7
-      # git-koi with --size, from the fork until it lands upstream.
+      # git-koi from upstream main; --size has no tagged release yet.
       - name: Check out git-koi
         uses: actions/checkout@v7
         with:
-          repository: simaanc/git-koi
-          ref: pond-size
+          repository: yalongwastaken/git-koi
+          ref: main
           path: .koi-src
       - name: Build git-koi
         shell: bash
